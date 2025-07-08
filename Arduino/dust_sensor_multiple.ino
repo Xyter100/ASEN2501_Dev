@@ -46,7 +46,7 @@ int dustPin1 = A1;
 
 void setup()  
 {    
-  Serial.begin(9600);
+  Serial.begin(115200);
   
   // Configure PWM Dust Sensor Sample pin (OC1A)
   pinMode(9, OUTPUT);
@@ -82,16 +82,15 @@ void loop()                     // run over and over again
   // if millis() or timer wraps around, we'll just reset it
   if (timer > millis())  timer = millis();
 
-  // approximately every second or so, print out the dust reading
-  if (millis() - timer > 1000) { 
+  // approximately every 100 milsecond or so, print out the dust reading
+  if (millis() - timer > 100) { 
     timer = millis(); // reset the timer
 
     float latest_dust_0 = latest_reading_0 * (VOLTAGE / 1023.0);
     float latest_dust_1 = latest_reading_1 * (VOLTAGE / 1023.0);
 
     Serial.print(latest_dust_0);
-    Serial.print(", ");
+    Serial.print(",");
     Serial.println(latest_dust_1);
   }
 }
-
